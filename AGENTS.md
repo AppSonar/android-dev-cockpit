@@ -33,6 +33,10 @@ dieses Repos ist frei.
 - `app-development.code-workspace` und `package.json` sind generiert und
   werden nie von Hand editiert: neues Skript in `scripts/`, Generator anpassen.
 - PowerShell-Skripte sind UTF-8 mit BOM.
+- Fehler im Klartext mit Handlungsanweisung über `Stop-WithHint`, Ausgaben
+  über `Write-Step`/`Write-Ok`/`Write-Info`/`Write-Warn2`/`Write-Fail` aus
+  `_env.ps1`. Parameter wie `-App <id>` setzen die generierten Tasks, nicht
+  der Benutzer.
 - npm-Skripte rufen `pwsh` aus dem PATH mit relativen Skriptpfaden auf, nie
   den vollen Pfad; Variablen vor einem Doppelpunkt als `${id}:push` schreiben.
 
@@ -66,10 +70,10 @@ dieses Repos ist frei.
 - Release-Weg: Push auf `main` → Unit-Tests → Debug- und Release-APK →
   GitHub-Release `latest` mit `<kurzname>-version.json`; bei releasewirksamen
   Änderungen `versionCode` erhöhen.
-- Gemeinsamer Release-Keystore mit Alias `appsonar`; Secrets
-  `RELEASE_KEYSTORE` und `RELEASE_STORE_PASSWORD` je Repo.
-- Nach Änderungen an android-apps-common alle App-Builds von Hand anstoßen:
-  `gh workflow run build.yml -R AppSonar/<app>`.
+- Gemeinsamer Release-Keystore; Secrets `RELEASE_KEYSTORE` und
+  `RELEASE_STORE_PASSWORD` je Repo.
+- Nach Änderungen an der gemeinsamen Bibliothek alle App-Builds von Hand
+  anstoßen: `gh workflow run build.yml -R <org>/<app>`.
 
 ## Testgerät (Xiaomi/MIUI)
 
